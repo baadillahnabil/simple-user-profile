@@ -5,7 +5,7 @@ $imageWidth: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
 }
 
 .CenteredRow {
@@ -24,6 +24,7 @@ $imageWidth: 200px;
 
 .CardBody {
     width: $cardWidth;
-    margin-top: 150px;
+    margin-top: 200px;
+    margin-bottom: 100px;
     padding-top: 50px;
 }
