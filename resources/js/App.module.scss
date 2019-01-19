@@ -1,0 +1,29 @@
+$cardWidth: 500px;
+$imageWidth: 200px;
+
+.BoxedLayout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.CenteredRow {
+    justify-content: center;
+}
+
+.ImageLogo {
+    position: absolute;
+    top: -140px;
+    left: ($cardWidth / 2) - ($imageWidth / 2);
+    width: $imageWidth;
+    height: $imageWidth;
+    background-color: ghostwhite;
+    z-index: 2;
+}
+
+.CardBody {
+    width: $cardWidth;
+    margin-top: 150px;
+    padding-top: 50px;
+}
