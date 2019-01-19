@@ -65164,10 +65164,6 @@ function (_Component) {
         }
       }, _callee, this, [[4, 13, 17, 20]]);
     }));
-
-    _this.onClickSignUp = function () {// TODO: Change to sign up component
-    };
-
     return _this;
   }
 
