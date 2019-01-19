@@ -29,12 +29,9 @@ class Login extends Component {
     try {
       const payload = {
         username: this.state.email,
-        password: this.state.password,
-        grant_type: 'password',
-        client_id: configs.CLIENT_ID,
-        client_secret: configs.CLIENT_SECRET
+        password: this.state.password
       }
-      const response = await window.axios.post(`${configs.BASE_URL}/oauth/token`, payload)
+      const response = await window.axios.post(`${configs.BASE_URL}/login`, payload)
       window.localStorage.setItem('login_data', JSON.stringify(response.data))
       cogoToast.success('Congratz! You are now successfully logged in!')
     } catch (error) {
