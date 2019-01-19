@@ -65127,13 +65127,10 @@ function (_Component) {
               _context.prev = 4;
               payload = {
                 username: _this.state.email,
-                password: _this.state.password,
-                grant_type: 'password',
-                client_id: _configs__WEBPACK_IMPORTED_MODULE_5__["default"].CLIENT_ID,
-                client_secret: _configs__WEBPACK_IMPORTED_MODULE_5__["default"].CLIENT_SECRET
+                password: _this.state.password
               };
               _context.next = 8;
-              return window.axios.post("".concat(_configs__WEBPACK_IMPORTED_MODULE_5__["default"].BASE_URL, "/oauth/token"), payload);
+              return window.axios.post("".concat(_configs__WEBPACK_IMPORTED_MODULE_5__["default"].BASE_URL, "/login"), payload);
 
             case 8:
               response = _context.sent;
