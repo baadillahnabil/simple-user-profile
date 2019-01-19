@@ -21,7 +21,7 @@ class Login extends Component {
 
   onClickLogin = async () => {
     if (this.state.email === '' || this.state.password === '') {
-      cogoToast.error('Please fill in the required data')
+      cogoToast.error('Please fill in the required fields')
       return
     }
 
@@ -46,6 +46,7 @@ class Login extends Component {
   }
 
   render() {
+    const { handleMoveToRegister } = this.props
     const { email, password, isLoading } = this.state
 
     return (
@@ -53,18 +54,27 @@ class Login extends Component {
         <Form>
           <Form.Group controlId="formGroupEmail">
             <Form.Label>Email Address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={email} onChange={this.onChangeEmail} />
+            <Form.Control type="email" required placeholder="Enter email" value={email} onChange={this.onChangeEmail} />
           </Form.Group>
           <Form.Group controlId="formGroupPassword" className="mb-4">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={password} onChange={this.onChangePassword} />
+            <Form.Control
+              type="password"
+              required
+              placeholder="Password"
+              value={password}
+              onChange={this.onChangePassword}
+            />
           </Form.Group>
           <Button variant="danger" block disabled={isLoading} onClick={this.onClickLogin}>
-            {isLoading ? 'Loading...' : 'Log In'}
+            {isLoading ? 'Loading...' : 'Sign In'}
           </Button>
         </Form>
         <Alert variant="light" className="mt-4 text-center">
-          Don't Have an Account yet? <a href="#">Sign Up Here!</a>
+          Don't Have an Account yet?
+          <Button variant="link" onClick={handleMoveToRegister}>
+            Sign Up Here!
+          </Button>
         </Alert>
       </>
     )
