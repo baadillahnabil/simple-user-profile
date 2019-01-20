@@ -12,6 +12,7 @@ class Register extends Component {
     phone: '',
     password: '',
     confirmPassword: '',
+    errorMessages: [],
     isLoading: false
   }
 
@@ -36,26 +37,50 @@ class Register extends Component {
     this.setState({ isLoading: true })
     try {
       const payload = {
-        username: this.state.email,
+        name: this.state.fullName,
+        email: this.state.email,
+        phone: this.state.phone,
         password: this.state.password,
-        grant_type: 'password',
-        client_id: configs.CLIENT_ID,
-        client_secret: configs.CLIENT_SECRET
+        password_confirmation: this.state.confirmPassword
       }
-      const response = await window.axios.post(`${configs.BASE_URL}/oauth/token`, payload)
-      window.localStorage.setItem('login_data', JSON.stringify(response.data))
-      cogoToast.success('Congratz! You are now successfully logged in!')
+      const response = await window.axios.post(`${configs.BASE_URL}/register`, payload)
+
+      cogoToast.success(window._.startCase(response.data.message))
+      this.props.handleMoveToLogin()
     } catch (error) {
       const errorResponse = { ...error }
       cogoToast.error(window._.startCase(errorResponse.response.data.message))
-    } finally {
+
+      const errors = errorResponse.response.data.errors
+      if (errors) {
+        this.state.errorMessages = []
+        if (errors.name) errors.name.map(message => this.state.errorMessages.push(message))
+        if (errors.email) errors.email.map(message => this.state.errorMessages.push(message))
+        if (errors.phone) errors.phone.map(message => this.state.errorMessages.push(message))
+        if (errors.password) errors.password.map(message => this.state.errorMessages.push(message))
+      }
       this.setState({ isLoading: false })
     }
   }
 
   render() {
     const { handleMoveToLogin } = this.props
-    const { fullName, email, phone, password, confirmPassword, isLoading } = this.state
+    const { fullName, email, phone, password, confirmPassword, errorMessages, isLoading } = this.state
+
+    let showErrorMessages = <></>
+    if (!window._.isEmpty(errorMessages)) {
+      showErrorMessages = (
+        <Alert variant="danger">
+          {errorMessages.map((message, index) => {
+            return (
+              <li key={index}>
+                <b>{message}</b>
+              </li>
+            )
+          })}
+        </Alert>
+      )
+    }
 
     return (
       <>
@@ -63,6 +88,7 @@ class Register extends Component {
           <Form.Group controlId="formGroupFullName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control type="text" placeholder="Your Full Name" value={fullName} onChange={this.onChangeFullName} />
+            <Form.Control.Feedback type="invalid">Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="formGroupEmail">
             <Form.Label>Email Address</Form.Label>
@@ -90,6 +116,7 @@ class Register extends Component {
               onChange={this.onChangeConfirmPassword}
             />
           </Form.Group>
+          {showErrorMessages}
           <Button variant="danger" block disabled={isLoading} onClick={this.onClickRegister}>
             {isLoading ? 'Loading...' : 'Sign Up'}
           </Button>
