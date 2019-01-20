@@ -4,6 +4,7 @@ Simple Login, Registration and Dashboard User Profile using React + Laravel
 
 -   Clone this project `git clone git@github.com:baadillahnabil/simple-user-profile.git` (for SSH) **or** `https://github.com/baadillahnabil/simple-user-profile.git` (for HTTPS)
 -   Run `composer install`
+-   Run `yarn` **or** `npm install`
 -   Run `yarn dev` **or** `npm run dev`
 -   Rename file `.env.example` to `.env`
 -   Run command `php artisan key:generate`
