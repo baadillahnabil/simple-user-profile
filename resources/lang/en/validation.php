@@ -129,7 +129,7 @@ return [
 
     'custom' => [
         'password' => [
-            'regex' => 'The password must contain at least one number and one letter.',
+            'regex' => 'The password must start with letter, contain at least one number and one letter.',
         ],
     ],
 
