@@ -17,7 +17,8 @@ Route::post('login', 'AuthController@login')->name('login');
 Route::post('register', 'AuthController@register')->name('register');
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('me', 'UsersController@me');
+    Route::put('users/{id}', 'UsersController@update');
+
+    Route::post('logout', 'AuthController@logout')->name('logout');
 });
