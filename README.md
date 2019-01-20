@@ -14,7 +14,6 @@ Simple Login, Registration and Dashboard User Profile using React + Laravel
 -   Run `php artisan passport:install`
 -   Copy the `Client Secret` of **Client Id: 2** to `.env` file to `PASSPORT_CLIENT_SECRET=`{your client secret}
 -   Run `php artisan serve`
-
-#### Done :)
+-   Done! Open the link!
 
 #### License: MIT
