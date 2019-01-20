@@ -41,7 +41,7 @@ class UsersController extends Controller
 
         $user->name = $request->has('name') ? $request->name : $user->name;
         $user->phone = $request->has('phone') ? $request->phone : $user->phone;
-        $user->password = $request->has('name') ? bcrypt($request->password) : $user->password;
+        $user->password = $request->has('password') ? bcrypt($request->password) : $user->password;
 
         $user->save();
 
