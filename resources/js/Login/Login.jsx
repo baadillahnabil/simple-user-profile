@@ -21,7 +21,7 @@ class Login extends Component {
 
   onClickLogin = async () => {
     if (this.state.email === '' || this.state.password === '') {
-      cogoToast.error('Please fill in the required fields')
+      cogoToast.error('Please Fill In The Required Fields')
       return
     }
 
@@ -33,11 +33,19 @@ class Login extends Component {
       }
       const response = await window.axios.post(`${configs.BASE_URL}/login`, payload)
       window.localStorage.setItem('login_data', JSON.stringify(response.data))
-      cogoToast.success('Congratz! You are now successfully logged in!')
+
+      const userData = await window.axios.get(`${configs.BASE_URL}/me`, {
+        headers: {
+          Authorization: `Bearer ${response.data.access_token}`
+        }
+      })
+      window.localStorage.setItem('user_data', JSON.stringify(userData.data))
+
+      cogoToast.success('Logged In Successfully!')
+      this.props.handleMoveToDashboard()
     } catch (error) {
       const errorResponse = { ...error }
       cogoToast.error(window._.startCase(errorResponse.response.data.message))
-    } finally {
       this.setState({ isLoading: false })
     }
   }
