@@ -5,10 +5,18 @@ import './App.module.scss'
 
 import Login from './Login/Login'
 import Register from './Register/Register'
+import Dashboard from './Dashboard/Dashboard'
+import Update from './Update/Update'
 
 class App extends Component {
   state = {
     showing: 'login'
+  }
+
+  componentDidMount() {
+    if (window.localStorage.getItem('login_data')) {
+      this.setState({ showing: 'dashboard' })
+    }
   }
 
   moveComponent = to => this.setState({ showing: to })
@@ -18,11 +26,23 @@ class App extends Component {
 
     let showedComponent
     if (showing === 'login')
-      showedComponent = <Login handleMoveToRegister={this.moveComponent.bind(this, 'register')} />
+      showedComponent = (
+        <Login
+          handleMoveToRegister={this.moveComponent.bind(this, 'register')}
+          handleMoveToDashboard={this.moveComponent.bind(this, 'dashboard')}
+        />
+      )
     else if (showing === 'register')
       showedComponent = <Register handleMoveToLogin={this.moveComponent.bind(this, 'login')} />
-    // else if (showing === 'dashboard')
-    //   showedComponent = <Login handleMoveToLogin={this.moveComponent.bind(this, 'login')} />
+    else if (showing === 'dashboard')
+      showedComponent = (
+        <Dashboard
+          handleMoveToLogin={this.moveComponent.bind(this, 'login')}
+          handleMoveToUpdate={this.moveComponent.bind(this, 'update')}
+        />
+      )
+    else if (showing === 'update')
+      showedComponent = <Update handleMoveToDashboard={this.moveComponent.bind(this, 'dashboard')} />
 
     return (
       <>
